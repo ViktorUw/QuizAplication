@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Quiz</string>
+    <string name="question"> Pytanie </string>
+    <string name="question_text"> Przykladowa tresc pytania siema</string>
+</resources>
