@@ -7,6 +7,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -35,6 +36,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState){
+
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("question_number", question_number);
+        outState.putInt("punkty", punkty);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
@@ -50,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        if (savedInstanceState != null){
+            question_number = savedInstanceState.getInt("question_number");
+            punkty = savedInstanceState.getInt("punkty");
+        }
+
         set_question(question_number);
 
         binding.buttonNext.setOnClickListener(v -> {
@@ -62,21 +77,21 @@ public class MainActivity extends AppCompatActivity {
                     punkty = punkty + 10;
                 }
 
-                    if(question_number < 10) {
-                        set_question(question_number);
+                if(question_number < 10) {
+                    set_question(question_number);
 
 //                        binding.questionTxt.setText(answer + "\n" + correct_answer + "\n" + String.valueOf(question_number));
 
-                    }
-                    else{
-
-                        binding.questionLayout.setVisibility(View.INVISIBLE);
-                        binding.cardView.setVisibility(View.INVISIBLE);
-                        binding.buttonNext.setVisibility(View.INVISIBLE);
-                        binding.Points.setVisibility(View.VISIBLE);
-                        binding.Points.append(String.valueOf(punkty) + " punktów");
-                    }
                 }
+                else{
+
+                    binding.questionLayout.setVisibility(View.INVISIBLE);
+                    binding.cardView.setVisibility(View.INVISIBLE);
+                    binding.buttonNext.setVisibility(View.INVISIBLE);
+                    binding.Points.setVisibility(View.VISIBLE);
+                    binding.Points.append(String.valueOf(punkty) + " punktów");
+                }
+            }
 
         });
 
